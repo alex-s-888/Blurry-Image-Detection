@@ -1,12 +1,9 @@
----
-title: BlurDetection
-emoji: 🌍
-colorFrom: green
-colorTo: blue
-sdk: gradio
-sdk_version: 5.12.0
-app_file: app.py
-pinned: false
----
+## Deployment on Hugging Face cloud platform
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+We may reuse Gradio script from [deployment_local](../deployment_local).  
+All we need in minimalistic application is `app.py` script, `requirements.txt` and model binary file.  
+See more details:
+- [https://huggingface.co/spaces/launch](https://huggingface.co/spaces/launch)
+- [https://huggingface.co/docs/hub/en/spaces-sdks-gradio](https://huggingface.co/docs/hub/en/spaces-sdks-gradio)  
+
+Link to the deployed model: [https://huggingface.co/spaces/Alex-MMXXIV/BlurDetection](https://huggingface.co/spaces/Alex-MMXXIV/BlurDetection)
