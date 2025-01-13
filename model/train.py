@@ -1,10 +1,8 @@
-
 import os
 import zipfile
 from tensorflow import keras
 
-# Download and unzip dataset
-dataset_url = "https://github.com/alex-s-888/Blurry-Image-Detection/raw/refs/heads/main/dataset/blur-noblur.zip"
+# Unzip dataset
 zip_file_path = "../dataset/blur-noblur.zip"
 zip_ref = zipfile.ZipFile(zip_file_path, 'r')
 # Extract to same name without the .zip extension
@@ -12,9 +10,6 @@ extract_dir = os.path.splitext(zip_file_path)[0]
 # Extract the files
 zip_ref.extractall(extract_dir)
 zip_ref.close()
-
-# Print the path to the extracted files
-print(f"Dataset extracted to: {extract_dir}")
 
 
 BATCH_SIZE = 24
@@ -30,8 +25,6 @@ train_ds = img_gen.flow_from_directory(
     shuffle=True,
     class_mode='categorical'
 )
-
-print(train_ds.class_indices)
 
 val_ds = img_gen.flow_from_directory(
     extract_dir + '/validation',
@@ -70,12 +63,10 @@ def prepare_model(learning_rate=0.001, dropout = 0.2):
   return model
 
 
-EPOCHS = 12
-
-
 # Best learning_rate is 0.001, build the model
 model = prepare_model(learning_rate=0.001)
 
+EPOCHS = 12
 history = model.fit(
   train_ds,
   epochs=EPOCHS,
@@ -85,7 +76,6 @@ history = model.fit(
 import tensorflow as tf
 
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
-
 tflite_model = converter.convert()
 
 with open('../deployment_docker/mymodel.tflite', 'wb') as f_out:
